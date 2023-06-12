@@ -59,7 +59,7 @@ func cacheAll() {
 	var c CachedStocksType
 	c.inner = make(map[string]*StockInfo)
 	for _, symbol := range LocalConfig.WatchStocks {
-		if c.inner[symbol] != nil {
+		if c.inner[symbol] == nil {
 			if stock, err := getStock(symbol); err != nil {
 				fmt.Println(err.Error())
 			} else {
@@ -67,11 +67,14 @@ func cacheAll() {
 			}
 			fmt.Println("Caching "+symbol);
 			time.Sleep((1 * time.Second))
+		} else {
+			fmt.Println("Skipping "+symbol);
 		}
 	}
 	c.Lock()
 	cachedStocks.inner = c.inner
 	c.Unlock()
+	fmt.Println("Caching finished");
 }
 
 func main() {

@@ -65,7 +65,7 @@ func cacheAll() {
 			c.inner[symbol] = stock;
 		}
 		fmt.Println("Caching "+symbol);
-		time.Sleep(1 * time.Second)
+		time.Sleep((1 * time.Second) + (500 * time.Millisecond))
 	}
 }
 

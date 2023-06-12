@@ -67,7 +67,9 @@ func cacheAll() {
 		fmt.Println("Caching "+symbol);
 		time.Sleep((1 * time.Second))
 	}
-	cachedStocks = c
+	c.Lock()
+	cachedStocks.inner = c.inner
+	c.Unlock()
 }
 
 func main() {
